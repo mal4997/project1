@@ -1,11 +1,25 @@
-public class Sum extends function {
-    @Override
-    public double evaulate() {
-        return 0;
+import java.util.Iterator;
+import java.util.TreeSet;
+
+/**
+ * implements the function interface and takes values and adds them together
+ * @author Maggie Lehman
+ */
+public class Sum extends Function {
+
+    Sum s = new Sum();
+    public Sum(Function...terms){
+        TreeSet sum = new TreeSet();
+        //Iterator i = terms.iterator();
     }
 
     @Override
-    public function derivative() {
+    public double evaluate(double value) {
+        return value;
+    }
+
+    @Override
+    public Function derivative() {
         return null;
     }
 

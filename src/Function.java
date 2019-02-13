@@ -1,14 +1,20 @@
+import java.util.TreeSet;
+
 /**
  * abstract class function, to represent and build other classes from
  * @author: Maggie Lehman
  */
 public abstract class Function {
+    public TreeSet t;
 
+    public Function(){
+        t = new TreeSet();
+    }
     /**
      * Given a double floating point value of x, compute the value of the function
      * @return - The result as a double
      */
-    public abstract double evaulate();
+    public abstract double evaluate(double value);
 
     /**
      * Return a human-readable expression of the function as a Java String. Functions using an infix
@@ -37,6 +43,7 @@ public abstract class Function {
      * @return - The function as a readable string
      */
     public abstract String toString();
+
 
 
 }

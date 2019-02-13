@@ -1,12 +1,29 @@
-public class Constant extends function {
+/**
+ * The constructor takes the value as its argument, implements the function as a constant
+ * @author Maggie Lehman
+ */
+public class Constant extends Function {
+    /**
+     * the value of the constant
+     */
+    double constant_val;
+
+    /**
+     * the constructor constant that makes an instance of a constant
+     * @param value - the value you want to make a constant
+     */
+    public Constant(double value){
+        t.add(new Constant(value));
+        this.constant_val = value;
+    }
     @Override
-    public double evaulate() {
-        return 0;
+    public double evaluate(double value) {
+        return this.constant_val;
     }
 
     @Override
-    public function derivative() {
-        return null;
+    public Function derivative() {
+        return new Constant(0);
     }
 
     @Override
@@ -16,11 +33,11 @@ public class Constant extends function {
 
     @Override
     public boolean isConstant() {
-        return false;
+        return true;
     }
 
     @Override
     public String toString() {
-        return null;
+        return Double.toString(constant_val);
     }
 }
