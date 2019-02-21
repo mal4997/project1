@@ -1,26 +1,48 @@
-import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 /**
  * implements the function interface and takes values and adds them together
  * @author Maggie Lehman
  */
 public class Sum extends Function {
-
-    Sum s = new Sum();
+    ArrayList<Function> function_terms;
     public Sum(Function...terms){
-        TreeSet sum = new TreeSet();
-        //Iterator i = terms.iterator();
+        super(terms);
+        function_terms = new ArrayList<>();
+        double result = 0;
+        for(Function f: terms){
+            if(f.isConstant()){
+                result += f.evaluate(1);
+            }
+            else{
+                function_terms.add(f);
+            }
+        }
+        Constant sum = new Constant(result);
+        function_terms.add(sum);
+
     }
 
     @Override
     public double evaluate(double value) {
-        return value;
+        double sum = 0;
+        for(Function f: this.terms){
+            double temp = f.evaluate(value);
+            sum += temp;
+        }
+        return sum;
     }
 
     @Override
     public Function derivative() {
-        return null;
+        ArrayList<Function> derivative = new ArrayList<>();
+        for(Function f : this.terms){
+            derivative.add(f.derivative());
+        }
+        Function f = new Sum(derivative.toArray(new Function[0]));
+        return f;
     }
 
     @Override
@@ -30,11 +52,28 @@ public class Sum extends Function {
 
     @Override
     public boolean isConstant() {
-        return false;
+        boolean constant = true;
+        for(Function f: this.terms){
+            if(!constant){
+                break;
+            }
+            else{
+                constant = f.isConstant();
+            }
+        }
+        return constant;
+
     }
 
     @Override
     public String toString() {
-        return null;
+        String result = "";
+        for(int i = 0; i < function_terms.size(); i++){
+            result += function_terms.get(i).toString();
+            if(i <  function_terms.size() -1 ){
+                result += " + ";
+            }
+        }
+        return result;
     }
 }

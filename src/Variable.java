@@ -6,20 +6,19 @@
  */
 public class Variable extends Function {
 
-    public final static Variable v = new Variable();
+    public final static Variable X = new Variable();
 
     private Variable() {
-        t.add(v);
     }
 
     @Override
     public double evaluate(double value) {
-        return 0;
+        return value;
     }
 
     @Override
     public Function derivative() {
-        return new Constant(0);
+        return new Constant(1);
     }
 
     @Override

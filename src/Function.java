@@ -1,15 +1,17 @@
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 /**
  * abstract class function, to represent and build other classes from
  * @author: Maggie Lehman
  */
 public abstract class Function {
-    public TreeSet t;
-
-    public Function(){
-        t = new TreeSet();
+    protected ArrayList<Function> terms;
+    public Function(Function...terms){
+        this.terms = new ArrayList<>(Arrays.asList(terms));
     }
+
     /**
      * Given a double floating point value of x, compute the value of the function
      * @return - The result as a double

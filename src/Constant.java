@@ -13,7 +13,6 @@ public class Constant extends Function {
      * @param value - the value you want to make a constant
      */
     public Constant(double value){
-        t.add(new Constant(value));
         this.constant_val = value;
     }
     @Override
