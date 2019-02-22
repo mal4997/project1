@@ -14,7 +14,8 @@ public class Sum extends Function {
         double result = 0;
         for(Function f: terms){
             if(f.isConstant()){
-                result += f.evaluate(1);
+                if(f.evaluate(1) != 0)
+                    result += f.evaluate(1);
             }
             else{
                 function_terms.add(f);
