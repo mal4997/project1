@@ -14,15 +14,20 @@ public class Sum extends Function {
         double result = 0;
         for(Function f: terms){
             if(f.isConstant()){
-                if(f.evaluate(1) != 0)
-                    result += f.evaluate(1);
+                result += f.evaluate(1);
             }
             else{
                 function_terms.add(f);
             }
         }
-        Constant sum = new Constant(result);
-        function_terms.add(sum);
+        if (result != 0.0) {
+            Constant sum = new Constant(result);
+            function_terms.add(sum);
+        }
+        if (function_terms.isEmpty()){
+            Constant zero = new Constant(0);
+            function_terms.add(zero);
+        }
 
     }
 
@@ -39,7 +44,7 @@ public class Sum extends Function {
     @Override
     public Function derivative() {
         ArrayList<Function> derivative = new ArrayList<>();
-        for(Function f : this.terms){
+        for(Function f : function_terms){
             derivative.add(f.derivative());
         }
         Function f = new Sum(derivative.toArray(new Function[0]));
