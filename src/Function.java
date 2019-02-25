@@ -30,9 +30,12 @@ public abstract class Function {
      * given interval. The interval is expressed by two double arguments. For all byt the simplest functions
      * the integral has to be computed numerically using trapezoid rule, so the number of trapezoids (i.e.
      * the granularity of the calculation is allso given in case it is needed.
-     * @return - the area underneath the function as a double
+     * @param lower_bound - the lower bound of integration
+     * @param upper_bound - the supper bound of integration
+     * @param num_pieces - number of trapezoids to integrate with respect to
+     * @return - the integral value of the computed definite integral
      */
-    public abstract double integral();
+    public abstract double integral(double lower_bound, double upper_bound, double num_pieces);
 
     /**
      * Answer whether or not this function is constant (including if is is a combination of other constants)

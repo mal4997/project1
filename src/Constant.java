@@ -40,8 +40,9 @@ public class Constant extends Function {
      * @return - the integral of a constant
      */
     @Override
-    public double integral() {
-        return 0;
+    public double integral(double lower_bound, double upper_bound, double num_pieces) {
+        double result = (upper_bound - lower_bound) * constant_val;
+        return result;
     }
 
     /**

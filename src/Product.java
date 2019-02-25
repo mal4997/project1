@@ -17,9 +17,8 @@ public class Product extends Function {
      */
     public Product(Function...terms){
         super(terms);
-        ArrayList<Function> function_terms;
         function_terms = new ArrayList<>();
-        double result = 0;
+        double result = 1;
         for (Function f : terms) {
             if (f.isConstant()) {
                 result = result * f.evaluate(1);
@@ -27,13 +26,18 @@ public class Product extends Function {
                 function_terms.add(f);
             }
         }
+        ArrayList<Function> temp_terms = new ArrayList<>();
+        for(Function f : function_terms){
+            if(f.isConstant() && f.evaluate(1) == 1 && function_terms.size() > 2){
+                temp_terms.add(f);
+            }
+        }
+        function_terms = temp_terms;
         if (result != 0.0) {
-            Constant sum = new Constant(result);
-            function_terms.add(sum);
+            function_terms.add(new Constant(result));
         }
         if (function_terms.isEmpty()) {
-            Constant zero = new Constant(0);
-            function_terms.add(zero);
+            function_terms.add(new Constant(0));
         }
 
     }
@@ -84,7 +88,7 @@ public class Product extends Function {
      * @return  - value of integral
      */
     @Override
-    public double integral() {
+    public double integral(double lower_bound, double upper_bound, double num_pieces) {
         return 0;
     }
 

@@ -41,8 +41,9 @@ public class Variable extends Function {
      * @return - the integral
      */
     @Override
-    public double integral() {
-        return 0;
+    public double integral(double lower_bound, double upper_bound, double num_pieces) {
+        double result = (upper_bound - lower_bound) * upper_bound;
+        return result / 2;
     }
 
     /**

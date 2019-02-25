@@ -72,8 +72,12 @@ public class Sum extends Function {
      * @return - the integral
      */
     @Override
-    public double integral() {
-        return 0;
+    public double integral(double lower_bound, double upper_bound, double num_pieces) {
+        double final_integral = 0.0;
+        for(Function f : function_terms){
+            final_integral += f.integral(lower_bound, upper_bound, num_pieces);
+        }
+        return final_integral;
     }
 
     /**
