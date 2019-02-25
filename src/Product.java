@@ -1,29 +1,29 @@
 import java.util.ArrayList;
 
 /**
- * implements the function interface and takes values and adds them together
+ * Product takes in functions to be multiplied together
  * @author Maggie Lehman
  */
-public class Sum extends Function {
+public class Product extends Function {
 
     /**
-     * The arrayList of all the function terms
+     * The arrayList internal representation of the function turns
      */
     ArrayList<Function> function_terms;
 
     /**
-     * The Constructor for the sum of multiple functions
-     * @param terms - the terms to make a sum of
+     * The constructor for the product function
+     * @param terms - the list of terms to make a sum function of
      */
-    public Sum(Function...terms){
+    public Product(Function...terms){
         super(terms);
+        ArrayList<Function> function_terms;
         function_terms = new ArrayList<>();
         double result = 0;
-        for(Function f: terms){
-            if(f.isConstant()){
-                result += f.evaluate(1);
-            }
-            else{
+        for (Function f : terms) {
+            if (f.isConstant()) {
+                result = result * f.evaluate(1);
+            } else {
                 function_terms.add(f);
             }
         }
@@ -31,7 +31,7 @@ public class Sum extends Function {
             Constant sum = new Constant(result);
             function_terms.add(sum);
         }
-        if (function_terms.isEmpty()){
+        if (function_terms.isEmpty()) {
             Constant zero = new Constant(0);
             function_terms.add(zero);
         }
@@ -39,37 +39,49 @@ public class Sum extends Function {
     }
 
     /**
-     * Evaluate the sum function at a given value, by calling evaluate on each individual part
-     * @param value - the value to evaluate at
-     * @return - the double of the evaluated sum
+     * Evaluation of the individual parts of the sum function, and then those multiplied together
+     * @param value - the value to evalute the function at
+     * @return - the double evaluation
      */
     @Override
     public double evaluate(double value) {
         double sum = 0;
         for(Function f: this.terms){
             double temp = f.evaluate(value);
-            sum += temp;
+            sum *= temp;
         }
         return sum;
     }
 
     /**
-     * The derivative of a sum function by calling all the individual parts derivative functions
+     * The derivative function of the product funtion
      * @return - the function of the derivative
      */
     @Override
     public Function derivative() {
         ArrayList<Function> derivative = new ArrayList<>();
+        ArrayList<Function> final_derivative = new ArrayList<>();
+        double result = 0.0;
         for(Function f : function_terms){
             derivative.add(f.derivative());
         }
-        Function f = new Sum(derivative.toArray(new Function[0]));
+        for(Function term : derivative){
+            if(term.isConstant()){
+                result *= term.evaluate(1);
+            }
+            else{
+                final_derivative.add(term);
+            }
+        }
+        Constant sum = new Constant(result);
+        final_derivative.add(sum);
+        Function f = new Sum(final_derivative.toArray(new Function[0]));
         return f;
     }
 
     /**
      * The integral of the sum function
-     * @return - the integral
+     * @return  - value of integral
      */
     @Override
     public double integral() {
@@ -77,8 +89,8 @@ public class Sum extends Function {
     }
 
     /**
-     * If a sum function contains any non-constants
-     * @return - true if it contains only constants, false otherwise
+     * If there is a non constant in the product function
+     * @return - true if all constant/ false otherwise
      */
     @Override
     public boolean isConstant() {
@@ -92,12 +104,11 @@ public class Sum extends Function {
             }
         }
         return constant;
-
     }
 
     /**
-     * toString representation of the sum function, with the correct symbols
-     * @return - the string representation
+     * toString representation of the product function
+     * @return - string representation of the product function
      */
     @Override
     public String toString() {
@@ -105,7 +116,7 @@ public class Sum extends Function {
         for(int i = 0; i < function_terms.size(); i++){
             result += function_terms.get(i).toString();
             if(i <  function_terms.size() -1 ){
-                result += " + ";
+                result += " * ";
             }
         }
         result = "(" + result + ")";
