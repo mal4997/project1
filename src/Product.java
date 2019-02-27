@@ -32,7 +32,8 @@ public class Product extends Function {
                 temp_terms.add(f);
             }
         }
-        function_terms = temp_terms;
+        if(!temp_terms.isEmpty())
+            function_terms = temp_terms;
         if (result != 0.0) {
             function_terms.add(new Constant(result));
         }
@@ -64,22 +65,19 @@ public class Product extends Function {
     @Override
     public Function derivative() {
         ArrayList<Function> derivative = new ArrayList<>();
-        ArrayList<Function> final_derivative = new ArrayList<>();
-        double result = 0.0;
+        int current_term = 0;
         for(Function f : function_terms){
-            derivative.add(f.derivative());
-        }
-        for(Function term : derivative){
-            if(term.isConstant()){
-                result *= term.evaluate(1);
+            ArrayList<Function> temp_deriv = new ArrayList<>();
+            ArrayList<Function> function_term_temp = new ArrayList<>();
+            temp_deriv.add(f.derivative());
+            Function f_temp = new Product(temp_deriv.toArray(new Function [0]));
+            for(Function f1 : function_terms){
+                function_term_temp.add(f);
             }
-            else{
-                final_derivative.add(term);
-            }
+            derivative.add(new Product(f_temp, function_term_temp.remove(current_term)));
+            current_term ++;
         }
-        Constant sum = new Constant(result);
-        final_derivative.add(sum);
-        Function f = new Sum(final_derivative.toArray(new Function[0]));
+        Function f = new Product(derivative.toArray(new Function[0]));
         return f;
     }
 
@@ -89,7 +87,11 @@ public class Product extends Function {
      */
     @Override
     public double integral(double lower_bound, double upper_bound, double num_pieces) {
-        return 0;
+        double final_integral = 0.0;
+        for(Function f : function_terms){
+            final_integral *= f.integral(lower_bound, upper_bound, num_pieces);
+        }
+        return final_integral;
     }
 
     /**
