@@ -1,7 +1,23 @@
+import java.util.ArrayList;
+
 public class Cos extends Function {
+    ArrayList<Function> function_terms;
+
+    public Cos(Function...terms){
+        super(terms);
+        function_terms = new ArrayList<>();
+        Function cos = new Product(terms);
+        function_terms.add(cos);
+    }
     @Override
     public double evaluate(double value) {
-        return 0;
+        double sum = 0;
+        for(Function f: this.terms){
+            double temp = f.evaluate(value);
+            sum *= temp;
+        }
+        sum = Math.cos(sum);
+        return sum;
     }
 
     @Override
@@ -16,11 +32,27 @@ public class Cos extends Function {
 
     @Override
     public boolean isConstant() {
-        return false;
+        boolean constant = true;
+        for(Function f: this.terms){
+            if(!constant){
+                break;
+            }
+            else{
+                constant = f.isConstant();
+            }
+        }
+        return constant;
     }
 
     @Override
     public String toString() {
-        return null;
+        String result = "";
+        String final_result = "";
+        for(int i = 0; i < function_terms.size(); i++){
+            result += function_terms.get(i).toString();
+        }
+        result = "(" + result  +")";
+        final_result = "Cos " + result;
+        return final_result;
     }
 }
