@@ -20,7 +20,9 @@ public class Sum extends Function {
         function_terms = new ArrayList<>();
         double result = 0;
         for(Function f: terms){
-            if(f.isConstant()){
+            if(f.evaluate(0) == 0) {
+            }
+            else if(f.isConstant()){
                 result += f.evaluate(1);
             }
             else{

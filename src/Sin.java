@@ -13,6 +13,7 @@ public class Sin extends Function {
         Function sin = new Product(terms);
         function_terms.add(sin);
     }
+
     @Override
     public double evaluate(double value) {
         double sum = 0;
@@ -26,12 +27,22 @@ public class Sin extends Function {
 
     @Override
     public Function derivative() {
-        return null;
+        ArrayList<Function> temp_function = function_terms;
+        Function temp = new Product(temp_function.toArray(new Function[0]));
+        Function derivative = new Sum(new Cos(temp),temp.derivative());
+        return derivative;
     }
 
     @Override
     public double integral(double lower_bound, double upper_bound, double num_pieces) {
-        return 0;
+        double integral = 0.0;
+        ArrayList<Function> temp_function = function_terms;
+        Function function = new Product(temp_function.toArray(new Function[0]));
+        double step_distance = (upper_bound - lower_bound) / num_pieces;
+        for(double x = lower_bound; x < upper_bound; x += step_distance){
+            integral = integral + (step_distance*((function.evaluate(x) + function.evaluate(x + step_distance)) / 2));
+        }
+        return integral;
     }
 
     @Override

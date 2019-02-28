@@ -37,6 +37,10 @@ public class Product extends Function {
         if (result != 0.0) {
             function_terms.add(new Constant(result));
         }
+        else{
+            function_terms.clear();
+            function_terms.add(new Constant(0));
+        }
         if (function_terms.isEmpty()) {
             function_terms.add(new Constant(0));
         }
@@ -50,7 +54,7 @@ public class Product extends Function {
      */
     @Override
     public double evaluate(double value) {
-        double sum = 0;
+        double sum = 1;
         for(Function f: this.terms){
             double temp = f.evaluate(value);
             sum *= temp;
@@ -64,21 +68,26 @@ public class Product extends Function {
      */
     @Override
     public Function derivative() {
-        ArrayList<Function> derivative = new ArrayList<>();
-        int current_term = 0;
-        for(Function f : function_terms){
-            ArrayList<Function> temp_deriv = new ArrayList<>();
-            ArrayList<Function> function_term_temp = new ArrayList<>();
-            temp_deriv.add(f.derivative());
-            Function f_temp = new Product(temp_deriv.toArray(new Function [0]));
-            for(Function f1 : function_terms){
-                function_term_temp.add(f);
-            }
-            derivative.add(new Product(f_temp, function_term_temp.remove(current_term)));
-            current_term ++;
+        ArrayList<ArrayList<Function>> derivative = new ArrayList<>();
+        int length = function_terms.size();
+        for(int i = 0; i < length; i++){
+            derivative.add(new ArrayList<>());
         }
-        Function f = new Product(derivative.toArray(new Function[0]));
-        return f;
+        for(int r = 0; r < length ; r++){
+            for(int c = 0; c< length; c++){
+                derivative.get(r).add(function_terms.get(c));
+            }
+        }
+        for(int m =  0; m < length; m++){
+            derivative.get(m).set(m, derivative.get(m).get(m).derivative());
+        }
+        Function[] addterms = new Product[length];
+        for( int i = 0; i <length; i++){
+            addterms[i] = new Product(derivative.get(i).toArray(new Function[0]));
+
+        }
+        Function final_deriv = new Sum(addterms);
+        return final_deriv;
     }
 
     /**
