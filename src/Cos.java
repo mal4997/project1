@@ -4,7 +4,6 @@ public class Cos extends Function {
     ArrayList<Function> function_terms;
 
     public Cos(Function...terms){
-        super(terms);
         function_terms = new ArrayList<>();
         Function cos = new Product(terms);
         function_terms.add(cos);
@@ -12,7 +11,7 @@ public class Cos extends Function {
     @Override
     public double evaluate(double value) {
         double sum = 0;
-        for(Function f: this.terms){
+        for(Function f: this.function_terms){
             double temp = f.evaluate(value);
             sum *= temp;
         }
@@ -44,15 +43,13 @@ public class Cos extends Function {
     @Override
     public boolean isConstant() {
         boolean constant = true;
-        for(Function f: this.terms){
-            if(!constant){
-                break;
-            }
-            else{
-                constant = f.isConstant();
+        for(Function f: this.function_terms){
+            if(!f.isConstant()) {
+                return false;
             }
         }
         return constant;
+
     }
 
     @Override

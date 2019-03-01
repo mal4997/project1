@@ -7,10 +7,7 @@ import java.util.Arrays;
  * @author: Maggie Lehman
  */
 public abstract class Function {
-    protected ArrayList<Function> terms;
-    public Function(Function...terms){
-        this.terms = new ArrayList<>(Arrays.asList(terms));
-    }
+
 
     /**
      * Given a double floating point value of x, compute the value of the function

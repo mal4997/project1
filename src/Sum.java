@@ -16,14 +16,13 @@ public class Sum extends Function {
      * @param terms - the terms to make a sum of
      */
     public Sum(Function...terms){
-        super(terms);
         function_terms = new ArrayList<>();
         double result = 0;
         for(Function f: terms){
-            if(f.evaluate(0) == 0) {
+            if(f.isConstant() && f.evaluate(0) ==0) {
             }
-            else if(f.isConstant()){
-                result += f.evaluate(1);
+             else if(f.isConstant()){
+                 result += f.evaluate(1);
             }
             else{
                 function_terms.add(f);
@@ -48,7 +47,7 @@ public class Sum extends Function {
     @Override
     public double evaluate(double value) {
         double sum = 0;
-        for(Function f: this.terms){
+        for(Function f: this.function_terms){
             double temp = f.evaluate(value);
             sum += temp;
         }
@@ -89,12 +88,9 @@ public class Sum extends Function {
     @Override
     public boolean isConstant() {
         boolean constant = true;
-        for(Function f: this.terms){
-            if(!constant){
-                break;
-            }
-            else{
-                constant = f.isConstant();
+        for(Function f: this.function_terms) {
+            if (!f.isConstant()) {
+                return false;
             }
         }
         return constant;
