@@ -40,7 +40,7 @@ public class Product extends Function {
             function_terms.clear();
         }
         if (function_terms.isEmpty()) {
-            function_terms.add(new Constant(0));
+            function_terms.add(new Constant(result));
         }
 
     }
@@ -127,13 +127,16 @@ public class Product extends Function {
     @Override
     public String toString() {
         String result = "";
+        int counter = 0;
         for(int i = 0; i < function_terms.size(); i++){
+            counter ++;
             result += function_terms.get(i).toString();
             if(i <  function_terms.size() -1 ){
                 result += " * ";
             }
         }
-        result = "(" + result + ")";
+        //if(counter > 1)
+            result = "(" + result + ")";
         return result;
     }
 }

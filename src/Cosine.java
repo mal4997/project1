@@ -5,33 +5,54 @@ import java.util.ArrayList;
  * @author: Maggie Lehman
  */
 public class Cosine extends Function {
+    /**
+     * Array list representation of the function terms
+     */
     ArrayList<Function> function_terms;
 
-    public Cosine(Function...terms){
+    /**
+     * Constructor for the function terms class
+     * @param terms - the terms to take the cos of
+     */
+    public Cosine(Function terms){
         function_terms = new ArrayList<>();
-        Function cos = new Product(terms);
-        function_terms.add(cos);
+        function_terms.add(terms);
     }
+
+    /**
+     * Evaluate the cos function at a given value
+     * @param value - where to evaluate
+     * @return - the double result
+     */
     @Override
     public double evaluate(double value) {
         double sum = 0;
         for(Function f: this.function_terms){
             double temp = f.evaluate(value);
-            sum *= temp;
+            sum += temp;
         }
         sum = Math.cos(sum);
         return sum;
     }
 
+    /**
+     * The derivative of the cos function
+     * @return - the function derivative
+     */
     @Override
     public Function derivative() {
-        ArrayList<Function> temp_function = function_terms;
-        Function temp = new Product(temp_function.toArray(new Function[0]));
         Function negative = new Constant(-1);
-        Function derivative = new Product((new Sum(new Sine(temp),temp.derivative())), negative);
+        Function derivative = (new Product(new Sine(function_terms.get(0)),function_terms.get(0).derivative(), negative));
         return derivative;
     }
 
+    /**
+     * Find the integral of the cos fucntion
+     * @param lower_bound - the lower bound of integration
+     * @param upper_bound - the supper bound of integration
+     * @param num_pieces - number of trapezoids to integrate with respect to
+     * @return - the double integral value
+     */
     @Override
     public double integral(double lower_bound, double upper_bound, double num_pieces) {
         double integral = 0.0;
@@ -45,6 +66,10 @@ public class Cosine extends Function {
         return integral;
     }
 
+    /**
+     * Is everything in cos a consatnt
+     * @return - true if true otherwise false
+     */
     @Override
     public boolean isConstant() {
         boolean constant = true;
@@ -57,6 +82,10 @@ public class Cosine extends Function {
 
     }
 
+    /**
+     * The toString representation of the cos function
+     * @return - the string representation
+     */
     @Override
     public String toString() {
         String result = "";
