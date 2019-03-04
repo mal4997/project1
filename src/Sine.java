@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
 /**
- * Sin function class
+ * Sine function class
  * @author Maggie Lehman
  */
-public class Sin extends Function {
+public class Sine extends Function {
     ArrayList<Function> function_terms;
 
-    public Sin(Function...terms){
+    public Sine(Function...terms){
         function_terms = new ArrayList<>();
         Function sin = new Product(terms);
         function_terms.add(sin);
@@ -28,7 +28,7 @@ public class Sin extends Function {
     public Function derivative() {
         ArrayList<Function> temp_function = function_terms;
         Function temp = new Product(temp_function.toArray(new Function[0]));
-        Function derivative = new Sum(new Cos(temp),temp.derivative());
+        Function derivative = new Sum(new Cosine(temp),temp.derivative());
         return derivative;
     }
 
@@ -39,7 +39,8 @@ public class Sin extends Function {
         Function function = new Product(temp_function.toArray(new Function[0]));
         double step_distance = (upper_bound - lower_bound) / num_pieces;
         for(double x = lower_bound; x < upper_bound; x += step_distance){
-            integral = integral + (step_distance*((function.evaluate(x) + function.evaluate(x + step_distance)) / 2));
+            integral = integral + (step_distance*((function.evaluate(x) + function.evaluate(x + step_distance))
+                    / 2));
         }
         return integral;
     }
@@ -64,7 +65,7 @@ public class Sin extends Function {
             result += function_terms.get(i).toString();
         }
         result = "(" + result  +")";
-        final_result = "Sin " + result;
+        final_result = "Sine " + result;
         return final_result;
     }
 }

@@ -1,9 +1,13 @@
 import java.util.ArrayList;
 
-public class Cos extends Function {
+/**
+ * Cosine class function
+ * @author: Maggie Lehman
+ */
+public class Cosine extends Function {
     ArrayList<Function> function_terms;
 
-    public Cos(Function...terms){
+    public Cosine(Function...terms){
         function_terms = new ArrayList<>();
         Function cos = new Product(terms);
         function_terms.add(cos);
@@ -24,7 +28,7 @@ public class Cos extends Function {
         ArrayList<Function> temp_function = function_terms;
         Function temp = new Product(temp_function.toArray(new Function[0]));
         Function negative = new Constant(-1);
-        Function derivative = new Product((new Sum(new Sin(temp),temp.derivative())), negative);
+        Function derivative = new Product((new Sum(new Sine(temp),temp.derivative())), negative);
         return derivative;
     }
 
@@ -35,7 +39,8 @@ public class Cos extends Function {
         Function function = new Product(temp_function.toArray(new Function[0]));
         double step_distance = (upper_bound - lower_bound) / num_pieces;
         for(double x = lower_bound; x < upper_bound; x += step_distance){
-            integral = integral + (step_distance*((function.evaluate(x) + function.evaluate(x + step_distance)) / 2));
+            integral = integral + (step_distance*((function.evaluate(x) + function.evaluate(x + step_distance))
+                    / 2));
         }
         return integral;
     }
@@ -60,7 +65,7 @@ public class Cos extends Function {
             result += function_terms.get(i).toString();
         }
         result = "(" + result  +")";
-        final_result = "Cos " + result;
+        final_result = "Cosine " + result;
         return final_result;
     }
 }

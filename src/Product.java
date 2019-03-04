@@ -33,12 +33,11 @@ public class Product extends Function {
         }
         if(!temp_terms.isEmpty())
             function_terms = temp_terms;
-        if (result != 0.0) {
+        if (result != 0.0 && function_terms.size() > 1) {
             function_terms.add(new Constant(result));
         }
-        else{
+        else if(result == 0.0){
             function_terms.clear();
-            //function_terms.add(new Constant(0));
         }
         if (function_terms.isEmpty()) {
             function_terms.add(new Constant(0));
@@ -95,11 +94,15 @@ public class Product extends Function {
      */
     @Override
     public double integral(double lower_bound, double upper_bound, double num_pieces) {
-        double final_integral = 0.0;
-        for(Function f : function_terms){
-            final_integral *= f.integral(lower_bound, upper_bound, num_pieces);
+        double integral = 0.0;
+        ArrayList<Function> temp_function = function_terms;
+        Function function = new Product(temp_function.toArray(new Function[0]));
+        double step_distance = (upper_bound - lower_bound) / num_pieces;
+        for(double x = lower_bound; x < upper_bound; x += step_distance){
+            integral = integral + (step_distance*((function.evaluate(x) + function.evaluate(x + step_distance))
+                    / 2));
         }
-        return final_integral;
+        return integral;
     }
 
     /**
