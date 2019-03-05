@@ -25,15 +25,9 @@ public class Product extends Function {
                 function_terms.add(f);
             }
         }
-        ArrayList<Function> temp_terms = new ArrayList<>();
-        for(Function f : function_terms){
-            if(f.isConstant() && f.evaluate(1) == 1 && function_terms.size() > 2){
-                temp_terms.add(f);
-            }
+        if(result == 1 && function_terms.size() > 1){
         }
-        if(!temp_terms.isEmpty())
-            function_terms = temp_terms;
-        if (result != 0.0 && function_terms.size() > 1) {
+        else if (result != 0.0 && function_terms.size() > 1) {
             function_terms.add(new Constant(result));
         }
         else if(result == 0.0){

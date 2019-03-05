@@ -54,7 +54,16 @@ public class TestPartTwo {
                     ( function.derivative().isConstant() ? "" : "not " ) +
                     "a constant." );
         }
-
-
+        System.out.println("x     " + "fn#1     " + "fn#2     " + "fn#3     " + "fn#4     " + "fn#5     " + "fn#6     " + "fn#7     " +
+                "fn#8     " + "fn#9     " + "fn#10    " + "fn#11     " + "fn#12");
+        System.out
+                .println( "==============================================================================================================" );
+        for ( double x = 0; x <= Math.PI; x += 0.1 ) {
+            System.out.printf("%4.2f", x);
+            for (Function f : functions) {
+                System.out.printf(" %8.4f", f.evaluate(x));
+            }
+            System.out.println();
+        }
     }
 }
