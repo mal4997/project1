@@ -1,3 +1,5 @@
+import Functions.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class TestPartTwo {
         }
         //creates various functions, see the toString output to see what each function tests
         Variable v = Variable.X;
-        List< Function > functions = new ArrayList<>();
+        List<Function> functions = new ArrayList<>();
         Function p1 = new Product(v, new Constant(0));
         Function p2 = new Product(v, new Constant(11), v , new Constant(3));
         Function p3 = new Product(v, new Sum(v, new Constant(1)), new Constant (4));
@@ -43,7 +45,7 @@ public class TestPartTwo {
         functions.add(cos4);
         int counter = 0;
         for(Function function : functions){
-            System.out.println("Function #" + counter + " " + function.toString());
+            System.out.println("Functions.Function #" + counter + " " + function.toString());
             counter++;
             System.out.println( function + " is " +
                     ( function.isConstant() ? "" : "not " ) +

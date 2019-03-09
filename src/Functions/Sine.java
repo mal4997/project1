@@ -1,7 +1,9 @@
+package Functions;
+
 import java.util.ArrayList;
 
 /**
- * Sine function class
+ * Functions.Sine function class
  * @author Maggie Lehman
  */
 public class Sine extends Function {
@@ -92,7 +94,7 @@ public class Sine extends Function {
         for(int i = 0; i < function_terms.size(); i++){
             result += function_terms.get(i).toString();
         }
-        final_result = "Sine " + result;
+        final_result = "Functions.Sine " + result;
         return final_result;
     }
 }

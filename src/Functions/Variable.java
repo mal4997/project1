@@ -1,7 +1,9 @@
+package Functions;
+
 /**
  * The constructor takes no argument, since the only variable allowed is x. There
- * should only be one instance of Variable. Therefore, the constructor is private and there is a public
- * final static instance of Variable within the Variable class. The instance's name should be x
+ * should only be one instance of Functions.Variable. Therefore, the constructor is private and there is a public
+ * final static instance of Functions.Variable within the Functions.Variable class. The instance's name should be x
  * @author Maggie Lehman
  */
 public class Variable extends Function {

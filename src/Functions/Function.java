@@ -1,3 +1,4 @@
+package Functions;
 
 /**
  * abstract class function, to represent and build other classes from

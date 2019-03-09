@@ -1,7 +1,9 @@
+package Functions;
+
 import java.util.ArrayList;
 
 /**
- * Cosine class function
+ * Functions.Cosine class function
  * @author: Maggie Lehman
  */
 public class Cosine extends Function {
@@ -94,7 +96,7 @@ public class Cosine extends Function {
             result += function_terms.get(i).toString();
         }
         result = "(" + result  +")";
-        final_result = "Cosine " + result;
+        final_result = "Functions.Cosine " + result;
         return final_result;
     }
 }

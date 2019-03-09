@@ -1,3 +1,7 @@
+import Functions.Constant;
+import Functions.Function;
+import Functions.Sum;
+import Functions.Variable;
 
 /**
  * Test program for part one of the project

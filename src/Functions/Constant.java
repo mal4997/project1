@@ -1,3 +1,5 @@
+package Functions;
+
 /**
  * The constructor takes the value as its argument, implements the function as a constant
  * @author Maggie Lehman

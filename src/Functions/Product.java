@@ -1,7 +1,9 @@
+package Functions;
+
 import java.util.ArrayList;
 
 /**
- * Product takes in functions to be multiplied together
+ * Functions.Product takes in functions to be multiplied together
  * @author Maggie Lehman
  */
 public class Product extends Function {
